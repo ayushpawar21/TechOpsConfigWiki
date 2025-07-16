@@ -1,4 +1,5 @@
 site_name: TechOps ConfigWiki
+site_url: https://ayushpawar21.github.io/TechOpsConfigWiki/
 site_description: A handy reference guide for IT professionals & DevOps engineers
 site_author: Aayush Pawar
 theme:
@@ -8,10 +9,14 @@ theme:
     - navigation.tabs
     - navigation.indexes
     - content.code.annotate
-    - content.code.copy
+    - content.code.copy   
     - toc.integrate
     - search.highlight
     - navigation.top
+
+# Repository
+repo_name: ayushpawar21/TechOpsConfigWiki
+repo_url: https://github.com/ayushpawar21/TechOpsConfigWiki
 
 plugins:
   - search
