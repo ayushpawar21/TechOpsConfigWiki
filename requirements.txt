@@ -1,6 +1,1 @@
-mkdocs
-mkdocs-material
-mkdocs-git-revision-date-localized-plugin
-# Add any other MkDocs plugins you use here
-mkdocs-awesome-pages-plugin
-mkdocs-mermaid2-plugin
+mkdocs*
