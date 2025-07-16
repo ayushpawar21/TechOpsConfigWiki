@@ -19,6 +19,7 @@ Ansible is a popular open-source automation tool used by IT professionals and De
 Ansible connects to your target machines over SSH and executes small programs called *modules* to perform tasks such as installing software, copying files, or restarting services.
 
 Key components:
+
 - **Inventory:** A list of hosts to manage.
 - **Playbooks:** YAML files describing automation workflows.
 - **Modules:** Reusable units of work.

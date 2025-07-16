@@ -40,6 +40,6 @@ If you:
 
 Use the menu on the left to jump into any topic. This site is always evolving, so bookmark it and come back often.
 
-> **Pro Tip:** You can deploy this whole site yourself using MkDocs and GitHub Pages. It’s easy and fast.
+
 
 Happy automating!
