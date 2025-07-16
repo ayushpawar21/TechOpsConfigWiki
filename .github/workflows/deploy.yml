@@ -11,11 +11,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # This permission is needed to push to the gh-pages branch
+      contents: write # This permission is needed for mkdocs gh-deploy to push to the remote branch
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4 # Action to checkout your repository code
+        with:
+          fetch-depth: 0 # Required for mkdocs gh-deploy to work correctly with git history
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -34,14 +36,8 @@ jobs:
           # If you have other plugins or themes, add them here if not in requirements.txt:
           # pip install mkdocs-awesome-pages-plugin mkdocs-mermaid2-plugin
 
-      - name: Build MkDocs site
-        run: mkdocs build --clean # Build the site, cleaning previous builds
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4 # Action to deploy to GitHub Pages
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # Automatically provided token
-          publish_dir: ./site # The directory where MkDocs builds the site
-          # If you are using a custom domain and want to keep the CNAME file:
-          # cname: example.com
-          # keep_files: true # Keep existing files in the gh-pages branch (e.g., CNAME)
+      - name: Deploy MkDocs site using gh-deploy
+        run: mkdocs gh-deploy --config-file mkdocs.yml --remote-branch main
+        env:
+          # Set the GITHUB_TOKEN as an environment variable for mkdocs gh-deploy
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
