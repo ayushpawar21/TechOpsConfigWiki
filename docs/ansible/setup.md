@@ -44,7 +44,6 @@ touch Vagrantfile
 Open the Vagrantfile with your preferred text editor and paste the following content into it:
 
 ```ruby
-
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -77,30 +76,19 @@ Vagrant.configure("2") do |config|
       vb.cpus = "1"      # Allocate 1 CPU
     end
 
-    # Provision the control node: install Ansible, create inventory, set up SSH key
-    control.vm.provision "shell", inline: <<-SHELL
+    # Provision the control node: install Ansible, create inventory
+    control.vm.provision "shell", inline: <<-'SHELL'
       echo "--- Provisioning Ansible Control Node ---"
       sudo apt-get update
       sudo apt-get install -y ansible git python3-pip
 
-      # Ensure .ssh directory exists and has correct permissions
-      mkdir -p /home/vagrant/.ssh
-      chmod 700 /home/vagrant/.ssh
-
-      # Copy Vagrant's insecure private key for managed nodes to the control node
-      # This allows the control node to SSH into managed nodes using the 'vagrant' user
-      # The key is located on the host at .vagrant/machines/<vm_name>/virtualbox/private_key
-      # and is mounted by Vagrant into /vagrant on the guest.
-      cp /vagrant/.vagrant/machines/ansible-managed-1/virtualbox/private_key /home/vagrant/.ssh/id_rsa
-      chmod 600 /home/vagrant/.ssh/id_rsa
-      chown vagrant:vagrant /home/vagrant/.ssh/id_rsa
-
       # Create Ansible inventory file dynamically
       echo "[managed]" | sudo tee /etc/ansible/hosts > /dev/null
-      for i in $(seq 1 #{VAGRANT_NUM_MANAGED_NODES}); do
-        echo "ansible-managed-${i} ansible_host=#{VAGRANT_IP_PREFIX}#{10 + i} ansible_user=vagrant ansible_ssh_private_key_file=/home/vagrant/.ssh/id_rsa" | sudo tee -a /etc/ansible/hosts > /dev/null
+      for i in $(seq 1 2); do
+        ip=$((10 + i))
+        echo "ansible-managed-${i} ansible_host=192.168.56.${ip} ansible_user=vagrant" | sudo tee -a /etc/ansible/hosts > /dev/null
       done
-      echo "" | sudo tee -a /etc/ansible/hosts > /dev/null # Add a newline for good measure
+      echo "" | sudo tee -a /etc/ansible/hosts > /dev/null
 
       echo "Ansible control node setup complete."
       echo "Generated Ansible inventory (/etc/ansible/hosts):"
@@ -130,11 +118,11 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  # Configure the shared folder for Ansible playbooks
-  # This line is commented out as playbook.yml and ansible.cfg are no longer included by default.
+  # Optional: Share playbooks between host and control node
   # config.vm.synced_folder "ansible/", "/home/vagrant/ansible", type: "virtualbox"
 
 end
+
 
 ```
 ## **Step 2: Customize Vagrantfile (Optional)**
