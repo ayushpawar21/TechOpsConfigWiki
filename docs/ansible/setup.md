@@ -1,8 +1,8 @@
-# Vagrant Ansible Lab Setup Guide
+# **Vagrant Ansible Lab Setup Guide**
 
 This guide will walk you through setting up a local Ansible control node and multiple managed nodes using Vagrant.
 
-## Vagrant Ansible Lab Architecture
+## **Vagrant Ansible Lab Architecture**
 
 
 ```mermaid
@@ -15,18 +15,18 @@ graph TD
 
 ```
 
-## Prerequisites
+## **Prerequisites**
 
 Before you begin, ensure you have the following installed on your host machine:
 
 - Vagrant: Download and install from [https://www.vagrantup.com/downloads](https://www.vagrantup.com/downloads)
 - VirtualBox (or another Vagrant provider): Download and install from [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
 
-## Setup Steps
+##**Setup Steps**
 
 Follow these steps to get your Ansible lab up and running:
 
-### Step 1: Create Project Directory and Vagrantfile
+### **Step 1: Create Project Directory and Vagrantfile**
 
 Create a new directory for your project. You can name it `ansible_vagrant_lab` or anything you prefer.
 
@@ -137,19 +137,17 @@ Vagrant.configure("2") do |config|
 end
 
 ```
-
-## Step 2: Customize Vagrantfile (Optional)
+## **Step 2: Customize Vagrantfile (Optional)**
 
 You can modify the following variables in your Vagrantfile to suit your needs:
 ```bash
 
 VAGRANT_NUM_MANAGED_NODES: Change the value 2 to your desired number of Ansible managed nodes.
-
 VAGRANT_IP_PREFIX: If you prefer a different private IP address range for your VMs, change "192.168.56." to your desired prefix.
 
 ```
 
-## Step 3: Start the Virtual Machines
+## **Step 3: Start the Virtual Machines**
 
 Navigate to your ansible_vagrant_lab directory in your terminal and run the following command:
 
@@ -160,14 +158,11 @@ vagrant up
 This command will:
 
 Download the ubuntu/focal64 Vagrant box (if you don't have it locally).
-
 Create and configure the ansible-control VM.
-
 Create and configure the specified number of ansible-managed-X VMs.
-
 This process may take some time depending on your internet connection and system resources.
 
-## Step 4: Connect to the Ansible Control Node
+## **Step 4: Connect to the Ansible Control Node**
 
 Once vagrant up completes, you can SSH into your Ansible control node:
 
@@ -175,7 +170,7 @@ Once vagrant up completes, you can SSH into your Ansible control node:
 vagrant ssh ansible-control
 ```
 
-## Step 5: Verify Ansible Setup on Control Node
+## **Step 5: Verify Ansible Setup on Control Node**
 
 After connecting to the ansible-control VM, you can verify that Ansible is installed and the inventory file has been generated correctly:
 
@@ -191,7 +186,7 @@ ansible-managed-1 ansible_host=192.168.56.11 ansible_user=vagrant ansible_ssh_pr
 ansible-managed-2 ansible_host=192.168.56.12 ansible_user=vagrant ansible_ssh_private_key_file=/home/vagrant/.ssh/id_rsa
 ```
 
-## Step 6: Clean Up (Optional)
+## **Step 6: Clean Up (Optional)**
 When you are finished with your lab and want to remove the virtual machines from your system, run the following command from your host machine (in the ansible_vagrant_lab directory):
 
 ```bash
