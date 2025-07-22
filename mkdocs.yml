@@ -20,11 +20,20 @@ repo_url: https://github.com/ayushpawar21/TechOpsConfigWiki
 
 plugins:
   - search
+  - mermaid2:
+      version: 10.0.2
   - git-revision-date-localized:
       fallback_to_build_date: true
 
 markdown_extensions:
   - codehilite
+  - pymdownx.superfences:
+        # make exceptions to highlighting of code:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+
 
 nav:
   - Home: index.md
