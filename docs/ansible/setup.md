@@ -2,7 +2,7 @@
 
 This guide will walk you through setting up a local Ansible control node and multiple managed nodes using Vagrant.
 
-# Vagrant Ansible Lab Architecture
+## Vagrant Ansible Lab Architecture
 
 
 ```mermaid
@@ -141,7 +141,7 @@ end
 ## Step 2: Customize Vagrantfile (Optional)
 
 You can modify the following variables in your Vagrantfile to suit your needs:
-```text
+```bash
 
 VAGRANT_NUM_MANAGED_NODES: Change the value 2 to your desired number of Ansible managed nodes.
 
