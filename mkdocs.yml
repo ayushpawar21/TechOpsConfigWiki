@@ -1,0 +1,56 @@
+site_name: TechOps ConfigWiki
+site_url: https://ayushpawar21.github.io/TechOpsConfigWiki/
+site_description: A handy reference guide for IT professionals & DevOps engineers
+site_author: Aayush Pawar
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - content.code.annotate
+    - content.code.copy   
+    - toc.integrate
+    - search.highlight
+    - navigation.top
+
+# Repository
+repo_name: ayushpawar21/TechOpsConfigWiki
+repo_url: https://github.com/ayushpawar21/TechOpsConfigWiki
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      fallback_to_build_date: true
+
+markdown_extensions:
+  - codehilite
+
+nav:
+  - Home: index.md
+  # - Linux:
+  #     - Basic Commands: linux/basic-commands.md
+  #     - User Management: linux/user-management.md
+  #     - File Permissions: linux/file-permissions.md
+  #     - Systemd & Services: linux/systemd.md
+  - Ansible:
+      - Introduction: ansible/index.md
+      - Lab Setup: ansible/setup.md
+      # - Jobs & Daily Task: ansible/jobs.md
+  # - Docker:
+  #     - Basics: docker/index.md
+  #     - Images & Containers: docker/images-containers.md
+  #     - Docker Compose: docker/compose.md
+  # - Kubernetes:
+  #     - Overview: k8s/index.md
+  #     - Kubectl Cheatsheet: k8s/kubectl.md
+  #     - YAML Files: k8s/yaml.md
+  # - Git:
+  #     - Commands: git/commands.md
+  #     - Branching & Merging: git/branching.md
+  # - CI/CD:
+  #     - Jenkins Pipelines: cicd/jenkins.md
+  #     - GitHub Actions: cicd/github-actions.md
+  # - Tools:
+  #     - Monitoring Tools: tools/monitoring.md
+  #     - SSH Tips: tools/ssh.md
