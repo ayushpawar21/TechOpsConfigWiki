@@ -30,7 +30,7 @@ The main focus is on Ansible, but the structure is extensible for Linux, Docker,
 ## 3. Folder Structure
 
 ```
-Aayush_Pawar/
+TechOpsConfigWiki/
 ├── docs/                  # Documentation source files
 │   ├── index.md           # Home page
 │   └── ansible/           # Ansible guides
