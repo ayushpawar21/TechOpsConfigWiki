@@ -80,28 +80,7 @@ Aayush_Pawar/
 
 ---
 
-## 5. Lab Architecture
-
-The Ansible lab uses Vagrant and VirtualBox to simulate a real-world automation environment:
-
-```mermaid
-graph TD
-    "Host Machine" -->|"Vagrant"| "VirtualBox"
-    "VirtualBox" --> "Control Node 192.168.56.10 Ansible"
-    "Control Node 192.168.56.10 Ansible" -->|"SSH"| "Managed Node 1 192.168.56.11"
-    "Control Node 192.168.56.10 Ansible" -->|"SSH"| "Managed Node 2 192.168.56.12"
-    "Control Node 192.168.56.10 Ansible" -->|"SSH"| "Managed Node 192.168.56.1X"
-```
-
-- **Control Node:** Runs Ansible and manages other nodes
-- **Managed Nodes:** Simulated servers for automation practice
-- **Inventory:** Dynamically generated for each lab
-
-See [docs/ansible/setup.md](docs/ansible/setup.md) for full setup instructions.
-
----
-
-## 6. Contributing
+## 5. Contributing
 
 Contributions are welcome! To propose changes:
 1. Fork the repository
@@ -113,16 +92,16 @@ For major changes, please open an issue first to discuss your ideas.
 
 ---
 
-## 7. License
+## 6. License
 
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/). (If you add a LICENSE file, update this section accordingly.)
 
 ---
 
-## 8. Contact / Author
+## 7. Contact / Author
 
 - **Author:** Aayush Pawar
 - **GitHub:** [ayushpawar21](https://github.com/ayushpawar21)
 - **Project Site:** [TechOps ConfigWiki](https://ayushpawar21.github.io/TechOpsConfigWiki/)
 
-For questions or suggestions, please open an [issue](https://github.com/ayushpawar21/TechOpsConfigWiki/issues). 
+For questions or suggestions, please open an [issue](https://github.com/ayushpawar21/TechOpsConfigWiki/issues).
