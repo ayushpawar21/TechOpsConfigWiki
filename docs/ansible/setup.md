@@ -44,59 +44,74 @@ touch Vagrantfile
 Open the Vagrantfile with your preferred text editor and paste the following content into it:
 
 ```ruby
+
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
 
-  # --- User Configuration Variables ---
-  # Number of Ansible managed nodes to create (excluding the control node)
   VAGRANT_NUM_MANAGED_NODES = 2
-
-  # Private IP address prefix for the VMs (e.g., "192.168.56.")
-  # The control node will be .10, managed nodes will start from .11
   VAGRANT_IP_PREFIX = "192.168.56."
-  # --- End User Configuration Variables ---
 
-
-  # Define the base box for all VMs
-  config.vm.box = "ubuntu/focal64" # Ubuntu 20.04 LTS
-
-  # Disable automatic box update checking
+  config.vm.box = "ubuntu/focal64"
   config.vm.box_check_update = false
 
-  # --- Ansible Control Node Setup ---
+  # Generate SSH key on host if not exists
+  unless File.exist?("ansible_id_rsa")
+    system("ssh-keygen -t rsa -b 2048 -f ansible_id_rsa -N ''")
+  end
+
+  def host_entries
+    entries = ["192.168.56.10 ansible-control"]
+    (1..VAGRANT_NUM_MANAGED_NODES).each do |i|
+      entries << "192.168.56.#{10 + i} ansible-managed-#{i}"
+    end
+    entries.join("\n")
+  end
+
+  # Shared synced folder to copy keys
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+
+  # --- Control Node ---
   config.vm.define "ansible-control" do |control|
     control.vm.hostname = "ansible-control"
     control.vm.network "private_network", ip: "#{VAGRANT_IP_PREFIX}10"
 
     control.vm.provider "virtualbox" do |vb|
       vb.name = "ansible-control"
-      vb.memory = "1024" # Allocate 1GB RAM
-      vb.cpus = "1"      # Allocate 1 CPU
+      vb.memory = "1024"
+      vb.cpus = "1"
     end
 
-    # Provision the control node: install Ansible, create inventory
-    control.vm.provision "shell", inline: <<-'SHELL'
-      echo "--- Provisioning Ansible Control Node ---"
+    control.vm.provision "shell", inline: <<-SHELL
       sudo apt-get update
-      sudo apt-get install -y ansible git python3-pip
+      sudo apt-get install -y ansible python3-pip
 
-      # Create Ansible inventory file dynamically
-      echo "[managed]" | sudo tee /etc/ansible/hosts > /dev/null
-      for i in $(seq 1 2); do
+      # Create ansible user and give sudo
+      sudo useradd -m -s /bin/bash ansible
+      echo "ansible:ansible" | sudo chpasswd
+      echo "ansible ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ansible
+
+      # Install private key
+      sudo mkdir -p /home/ansible/.ssh
+      sudo cp /vagrant/ansible_id_rsa /home/ansible/.ssh/id_rsa
+      sudo cp /vagrant/ansible_id_rsa.pub /home/ansible/.ssh/id_rsa.pub
+      sudo chown -R ansible:ansible /home/ansible/.ssh
+      sudo chmod 600 /home/ansible/.ssh/id_rsa
+      sudo chmod 644 /home/ansible/.ssh/id_rsa.pub
+
+      # Write Ansible inventory
+      echo "[managed]" | sudo tee /etc/ansible/hosts
+      for i in $(seq 1 #{VAGRANT_NUM_MANAGED_NODES}); do
         ip=$((10 + i))
-        echo "ansible-managed-${i} ansible_host=192.168.56.${ip} ansible_user=vagrant" | sudo tee -a /etc/ansible/hosts > /dev/null
+        echo "ansible-managed-${i} ansible_host=#{VAGRANT_IP_PREFIX}${ip} ansible_user=ansible ansible_ssh_private_key_file=/home/ansible/.ssh/id_rsa" | sudo tee -a /etc/ansible/hosts
       done
-      echo "" | sudo tee -a /etc/ansible/hosts > /dev/null
 
-      echo "Ansible control node setup complete."
-      echo "Generated Ansible inventory (/etc/ansible/hosts):"
-      cat /etc/ansible/hosts
+      echo "#{host_entries}" | sudo tee -a /etc/hosts
     SHELL
   end
 
-  # --- Ansible Managed Nodes Setup ---
+  # --- Managed Nodes ---
   (1..VAGRANT_NUM_MANAGED_NODES).each do |i|
     config.vm.define "ansible-managed-#{i}" do |managed|
       managed.vm.hostname = "ansible-managed-#{i}"
@@ -104,23 +119,28 @@ Vagrant.configure("2") do |config|
 
       managed.vm.provider "virtualbox" do |vb|
         vb.name = "ansible-managed-#{i}"
-        vb.memory = "512" # Allocate 512MB RAM
-        vb.cpus = "1"     # Allocate 1 CPU
+        vb.memory = "512"
+        vb.cpus = "1"
       end
 
-      # Provision managed nodes: ensure python3 is installed for Ansible
       managed.vm.provision "shell", inline: <<-SHELL
-        echo "--- Provisioning Ansible Managed Node #{i} ---"
         sudo apt-get update
-        sudo apt-get install -y python3
-        echo "Ansible managed node #{i} setup complete."
+        sudo apt-get install -y python3 openssh-server
+
+        # Create ansible user and install public key
+        sudo useradd -m -s /bin/bash ansible
+        echo "ansible:ansible" | sudo chpasswd
+        echo "ansible ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ansible
+
+        sudo mkdir -p /home/ansible/.ssh
+        sudo cp /vagrant/ansible_id_rsa.pub /home/ansible/.ssh/authorized_keys
+        sudo chown -R ansible:ansible /home/ansible/.ssh
+        sudo chmod 600 /home/ansible/.ssh/authorized_keys
+
+        echo "#{host_entries}" | sudo tee -a /etc/hosts
       SHELL
     end
   end
-
-  # Optional: Share playbooks between host and control node
-  # config.vm.synced_folder "ansible/", "/home/vagrant/ansible", type: "virtualbox"
-
 end
 
 
@@ -174,7 +194,15 @@ ansible-managed-1 ansible_host=192.168.56.11 ansible_user=vagrant ansible_ssh_pr
 ansible-managed-2 ansible_host=192.168.56.12 ansible_user=vagrant ansible_ssh_private_key_file=/home/vagrant/.ssh/id_rsa
 ```
 
-## **Step 6: Clean Up (Optional)**
+## 🧪 Test Ansible Ping
+
+```bash
+sudo -u ansible ansible all -m ping
+
+
+```
+
+## **Step 7: Clean Up (Optional)**
 When you are finished with your lab and want to remove the virtual machines from your system, run the following command from your host machine (in the ansible_vagrant_lab directory):
 
 ```bash
