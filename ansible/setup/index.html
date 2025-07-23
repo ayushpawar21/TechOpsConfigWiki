@@ -257,9 +257,16 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#step-6-clean-up-optional">
+<a class="md-nav__link" href="#test-ansible-ping">
 <span class="md-ellipsis">
-      Step 6: Clean Up (Optional)
+      🧪 Test Ansible Ping
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-7-clean-up-optional">
+<span class="md-ellipsis">
+      Step 7: Clean Up (Optional)
     </span>
 </a>
 </li>
@@ -309,54 +316,68 @@
 
 <span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">"2"</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">config</span><span class="o">|</span>
 
-<span class="w">  </span><span class="c1"># --- User Configuration Variables ---</span>
-<span class="w">  </span><span class="c1"># Number of Ansible managed nodes to create (excluding the control node)</span>
 <span class="w">  </span><span class="no">VAGRANT_NUM_MANAGED_NODES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
-
-<span class="w">  </span><span class="c1"># Private IP address prefix for the VMs (e.g., "192.168.56.")</span>
-<span class="w">  </span><span class="c1"># The control node will be .10, managed nodes will start from .11</span>
 <span class="w">  </span><span class="no">VAGRANT_IP_PREFIX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"192.168.56."</span>
-<span class="w">  </span><span class="c1"># --- End User Configuration Variables ---</span>
 
-
-<span class="w">  </span><span class="c1"># Define the base box for all VMs</span>
-<span class="w">  </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ubuntu/focal64"</span><span class="w"> </span><span class="c1"># Ubuntu 20.04 LTS</span>
-
-<span class="w">  </span><span class="c1"># Disable automatic box update checking</span>
+<span class="w">  </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ubuntu/focal64"</span>
 <span class="w">  </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box_check_update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kp">false</span>
 
-<span class="w">  </span><span class="c1"># --- Ansible Control Node Setup ---</span>
+<span class="w">  </span><span class="c1"># Generate SSH key on host if not exists</span>
+<span class="w">  </span><span class="k">unless</span><span class="w"> </span><span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="s2">"ansible_id_rsa"</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">system</span><span class="p">(</span><span class="s2">"ssh-keygen -t rsa -b 2048 -f ansible_id_rsa -N ''"</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">host_entries</span>
+<span class="w">    </span><span class="n">entries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">"192.168.56.10 ansible-control"</span><span class="o">]</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="no">VAGRANT_NUM_MANAGED_NODES</span><span class="p">)</span><span class="o">.</span><span class="n">each</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">i</span><span class="o">|</span>
+<span class="w">      </span><span class="n">entries</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s2">"192.168.56.</span><span class="si">#{</span><span class="mi">10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="si">}</span><span class="s2"> ansible-managed-</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="n">entries</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="c1"># Shared synced folder to copy keys</span>
+<span class="w">  </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span><span class="w"> </span><span class="s2">"."</span><span class="p">,</span><span class="w"> </span><span class="s2">"/vagrant"</span><span class="p">,</span><span class="w"> </span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="s2">"virtualbox"</span>
+
+<span class="w">  </span><span class="c1"># --- Control Node ---</span>
 <span class="w">  </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span><span class="w"> </span><span class="s2">"ansible-control"</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">control</span><span class="o">|</span>
 <span class="w">    </span><span class="n">control</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ansible-control"</span>
 <span class="w">    </span><span class="n">control</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span><span class="w"> </span><span class="s2">"private_network"</span><span class="p">,</span><span class="w"> </span><span class="ss">ip</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="si">#{</span><span class="no">VAGRANT_IP_PREFIX</span><span class="si">}</span><span class="s2">10"</span>
 
 <span class="w">    </span><span class="n">control</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span><span class="w"> </span><span class="s2">"virtualbox"</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">vb</span><span class="o">|</span>
 <span class="w">      </span><span class="n">vb</span><span class="o">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ansible-control"</span>
-<span class="w">      </span><span class="n">vb</span><span class="o">.</span><span class="n">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1024"</span><span class="w"> </span><span class="c1"># Allocate 1GB RAM</span>
-<span class="w">      </span><span class="n">vb</span><span class="o">.</span><span class="n">cpus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1"</span><span class="w">      </span><span class="c1"># Allocate 1 CPU</span>
+<span class="w">      </span><span class="n">vb</span><span class="o">.</span><span class="n">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1024"</span>
+<span class="w">      </span><span class="n">vb</span><span class="o">.</span><span class="n">cpus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">    </span><span class="k">end</span>
 
-<span class="w">    </span><span class="c1"># Provision the control node: install Ansible, create inventory</span>
-<span class="w">    </span><span class="n">control</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span><span class="w"> </span><span class="s2">"shell"</span><span class="p">,</span><span class="w"> </span><span class="ss">inline</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;&lt;-</span><span class="sh">'</span><span class="dl">SHELL</span><span class="sh">'</span>
-<span class="sh">      echo "--- Provisioning Ansible Control Node ---"</span>
+<span class="w">    </span><span class="n">control</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span><span class="w"> </span><span class="s2">"shell"</span><span class="p">,</span><span class="w"> </span><span class="ss">inline</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;&lt;-</span><span class="dl">SHELL</span>
 <span class="sh">      sudo apt-get update</span>
-<span class="sh">      sudo apt-get install -y ansible git python3-pip</span>
+<span class="sh">      sudo apt-get install -y ansible python3-pip</span>
 
-<span class="sh">      # Create Ansible inventory file dynamically</span>
-<span class="sh">      echo "[managed]" | sudo tee /etc/ansible/hosts &gt; /dev/null</span>
-<span class="sh">      for i in $(seq 1 2); do</span>
+<span class="sh">      # Create ansible user and give sudo</span>
+<span class="sh">      sudo useradd -m -s /bin/bash ansible</span>
+<span class="sh">      echo "ansible:ansible" | sudo chpasswd</span>
+<span class="sh">      echo "ansible ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ansible</span>
+
+<span class="sh">      # Install private key</span>
+<span class="sh">      sudo mkdir -p /home/ansible/.ssh</span>
+<span class="sh">      sudo cp /vagrant/ansible_id_rsa /home/ansible/.ssh/id_rsa</span>
+<span class="sh">      sudo cp /vagrant/ansible_id_rsa.pub /home/ansible/.ssh/id_rsa.pub</span>
+<span class="sh">      sudo chown -R ansible:ansible /home/ansible/.ssh</span>
+<span class="sh">      sudo chmod 600 /home/ansible/.ssh/id_rsa</span>
+<span class="sh">      sudo chmod 644 /home/ansible/.ssh/id_rsa.pub</span>
+
+<span class="sh">      # Write Ansible inventory</span>
+<span class="sh">      echo "[managed]" | sudo tee /etc/ansible/hosts</span>
+<span class="sh">      for i in $(seq 1 #{VAGRANT_NUM_MANAGED_NODES}); do</span>
 <span class="sh">        ip=$((10 + i))</span>
-<span class="sh">        echo "ansible-managed-${i} ansible_host=192.168.56.${ip} ansible_user=vagrant" | sudo tee -a /etc/ansible/hosts &gt; /dev/null</span>
+<span class="sh">        echo "ansible-managed-${i} ansible_host=#{VAGRANT_IP_PREFIX}${ip} ansible_user=ansible ansible_ssh_private_key_file=/home/ansible/.ssh/id_rsa" | sudo tee -a /etc/ansible/hosts</span>
 <span class="sh">      done</span>
-<span class="sh">      echo "" | sudo tee -a /etc/ansible/hosts &gt; /dev/null</span>
 
-<span class="sh">      echo "Ansible control node setup complete."</span>
-<span class="sh">      echo "Generated Ansible inventory (/etc/ansible/hosts):"</span>
-<span class="sh">      cat /etc/ansible/hosts</span>
+<span class="sh">      echo "#{host_entries}" | sudo tee -a /etc/hosts</span>
 <span class="dl">    SHELL</span>
 <span class="w">  </span><span class="k">end</span>
 
-<span class="w">  </span><span class="c1"># --- Ansible Managed Nodes Setup ---</span>
+<span class="w">  </span><span class="c1"># --- Managed Nodes ---</span>
 <span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="no">VAGRANT_NUM_MANAGED_NODES</span><span class="p">)</span><span class="o">.</span><span class="n">each</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">i</span><span class="o">|</span>
 <span class="w">    </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span><span class="w"> </span><span class="s2">"ansible-managed-</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">managed</span><span class="o">|</span>
 <span class="w">      </span><span class="n">managed</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ansible-managed-</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span>
@@ -364,23 +385,28 @@
 
 <span class="w">      </span><span class="n">managed</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span><span class="w"> </span><span class="s2">"virtualbox"</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">vb</span><span class="o">|</span>
 <span class="w">        </span><span class="n">vb</span><span class="o">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ansible-managed-</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span>
-<span class="w">        </span><span class="n">vb</span><span class="o">.</span><span class="n">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"512"</span><span class="w"> </span><span class="c1"># Allocate 512MB RAM</span>
-<span class="w">        </span><span class="n">vb</span><span class="o">.</span><span class="n">cpus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1"</span><span class="w">     </span><span class="c1"># Allocate 1 CPU</span>
+<span class="w">        </span><span class="n">vb</span><span class="o">.</span><span class="n">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"512"</span>
+<span class="w">        </span><span class="n">vb</span><span class="o">.</span><span class="n">cpus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">      </span><span class="k">end</span>
 
-<span class="w">      </span><span class="c1"># Provision managed nodes: ensure python3 is installed for Ansible</span>
 <span class="w">      </span><span class="n">managed</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span><span class="w"> </span><span class="s2">"shell"</span><span class="p">,</span><span class="w"> </span><span class="ss">inline</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;&lt;-</span><span class="dl">SHELL</span>
-<span class="sh">        echo "--- Provisioning Ansible Managed Node #{i} ---"</span>
 <span class="sh">        sudo apt-get update</span>
-<span class="sh">        sudo apt-get install -y python3</span>
-<span class="sh">        echo "Ansible managed node #{i} setup complete."</span>
+<span class="sh">        sudo apt-get install -y python3 openssh-server</span>
+
+<span class="sh">        # Create ansible user and install public key</span>
+<span class="sh">        sudo useradd -m -s /bin/bash ansible</span>
+<span class="sh">        echo "ansible:ansible" | sudo chpasswd</span>
+<span class="sh">        echo "ansible ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ansible</span>
+
+<span class="sh">        sudo mkdir -p /home/ansible/.ssh</span>
+<span class="sh">        sudo cp /vagrant/ansible_id_rsa.pub /home/ansible/.ssh/authorized_keys</span>
+<span class="sh">        sudo chown -R ansible:ansible /home/ansible/.ssh</span>
+<span class="sh">        sudo chmod 600 /home/ansible/.ssh/authorized_keys</span>
+
+<span class="sh">        echo "#{host_entries}" | sudo tee -a /etc/hosts</span>
 <span class="dl">      SHELL</span>
 <span class="w">    </span><span class="k">end</span>
 <span class="w">  </span><span class="k">end</span>
-
-<span class="w">  </span><span class="c1"># Optional: Share playbooks between host and control node</span>
-<span class="w">  </span><span class="c1"># config.vm.synced_folder "ansible/", "/home/vagrant/ansible", type: "virtualbox"</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h2 id="step-2-customize-vagrantfile-optional"><strong>Step 2: Customize Vagrantfile (Optional)</strong></h2>
@@ -411,7 +437,10 @@ cat<span class="w"> </span>/etc/ansible/hosts
 ansible-managed-1 ansible_host=192.168.56.11 ansible_user=vagrant ansible_ssh_private_key_file=/home/vagrant/.ssh/id_rsa
 ansible-managed-2 ansible_host=192.168.56.12 ansible_user=vagrant ansible_ssh_private_key_file=/home/vagrant/.ssh/id_rsa
 </code></pre></div></p>
-<h2 id="step-6-clean-up-optional"><strong>Step 6: Clean Up (Optional)</strong></h2>
+<h2 id="test-ansible-ping">🧪 Test Ansible Ping</h2>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>ansible<span class="w"> </span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping
+</code></pre></div>
+<h2 id="step-7-clean-up-optional"><strong>Step 7: Clean Up (Optional)</strong></h2>
 <p>When you are finished with your lab and want to remove the virtual machines from your system, run the following command from your host machine (in the ansible_vagrant_lab directory):</p>
 <p><div class="highlight"><pre><span></span><code>vagrant<span class="w"> </span>destroy<span class="w"> </span>-f
 </code></pre></div>
@@ -421,7 +450,7 @@ This will power down and delete all the VMs created by the Vagrantfile.</p>
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 22, 2025 19:53:47 UTC">July 22, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 23, 2025 06:12:05 UTC">July 23, 2025</span>
 </span>
 </aside>
 </article>
