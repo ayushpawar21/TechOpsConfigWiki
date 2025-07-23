@@ -194,15 +194,21 @@ ansible-managed-1 ansible_host=192.168.56.11 ansible_user=vagrant ansible_ssh_pr
 ansible-managed-2 ansible_host=192.168.56.12 ansible_user=vagrant ansible_ssh_private_key_file=/home/vagrant/.ssh/id_rsa
 ```
 
-## 🧪 Test Ansible Ping
+## **Step 6: 🧪 Test Ansible Ping****
+
+```bash 
+# Swtich user vagrant to ansible user
+su - ansible 
+# Password : ansible
+```
+
+## **Step 7: 🧪 Test Ansible Ping**
 
 ```bash
 sudo -u ansible ansible all -m ping
-
-
 ```
 
-## **Step 7: Clean Up (Optional)**
+## **Step 8: Clean Up (Optional)**
 When you are finished with your lab and want to remove the virtual machines from your system, run the following command from your host machine (in the ansible_vagrant_lab directory):
 
 ```bash
