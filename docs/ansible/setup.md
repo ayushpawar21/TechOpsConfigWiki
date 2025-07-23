@@ -21,7 +21,7 @@ Before you begin, ensure you have the following installed on your host machine:
 
 - Vagrant: Download and install from: [https://www.vagrantup.com/downloads](https://www.vagrantup.com/downloads)
 - VirtualBox (or another Vagrant provider): Download and install from [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
-- Youtube Setup Ref link: [https://youtu.be/LZoEa9RNlgk]
+- Youtube Ref link: [Ansible-Setup](https://youtu.be/LZoEa9RNlgk)
 
 ##**Setup Steps**
 
