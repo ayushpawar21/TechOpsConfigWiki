@@ -69,7 +69,6 @@ The main focus is on **Ansible**, but the structure is extensible for Linux, Doc
     └── site/                  # (Generated) Static site output
     ```
 
----
 
 ## 4. How to Use
 
