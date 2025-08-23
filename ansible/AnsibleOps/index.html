@@ -12,19 +12,23 @@
         <meta name="author" content="Aayush Pawar">
       
       
+        <link rel="canonical" href="https://ayushpawar21.github.io/TechOpsConfigWiki/ansible/AnsibleOps/">
+      
+      
+        <link rel="prev" href="../setup/">
       
       
       
-      <link rel="icon" href="/TechOpsConfigWiki/assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
-        <title>TechOps ConfigWiki</title>
+        <title>NTP/Chrony Task - TechOps ConfigWiki</title>
       
     
     
-      <link rel="stylesheet" href="/TechOpsConfigWiki/assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
       
       
 
@@ -43,7 +47,7 @@
       
     
     
-    <script>__md_scope=new URL("/TechOpsConfigWiki/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -61,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ntpchrony-ansible-project" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -71,7 +80,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/TechOpsConfigWiki/." title="TechOps ConfigWiki" class="md-header__button md-logo" aria-label="TechOps ConfigWiki" data-md-component="logo">
+    <a href="../.." title="TechOps ConfigWiki" class="md-header__button md-logo" aria-label="TechOps ConfigWiki" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -91,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              NTP/Chrony Task
             
           </span>
         </div>
@@ -176,7 +185,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/TechOpsConfigWiki/." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -193,11 +202,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/TechOpsConfigWiki/ansible/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -235,7 +246,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/TechOpsConfigWiki/." title="TechOps ConfigWiki" class="md-nav__button md-logo" aria-label="TechOps ConfigWiki" data-md-component="logo">
+    <a href="../.." title="TechOps ConfigWiki" class="md-nav__button md-logo" aria-label="TechOps ConfigWiki" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -265,7 +276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/TechOpsConfigWiki/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -284,6 +295,8 @@
       
   
   
+    
+  
   
   
     
@@ -301,20 +314,21 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="/TechOpsConfigWiki/ansible/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -327,13 +341,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Ansible
@@ -349,7 +363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/TechOpsConfigWiki/ansible/setup/" class="md-nav__link">
+      <a href="../setup/" class="md-nav__link">
         
   
   
@@ -369,8 +383,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -383,13 +399,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
@@ -405,7 +419,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             Daily Task/Ops
@@ -416,10 +430,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/TechOpsConfigWiki/ansible/AnsibleOps/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    NTP/Chrony Task
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -430,6 +466,95 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ansiblecfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. ansible.cfg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-inventroyini" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. inventroy.ini
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ntp_or_chronyyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. ntp_or_chrony.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-rolestime_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. roles/time_config/
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-and-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup and Usage
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -462,8 +587,128 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  
+  
+
+
+<h1 id="ntpchrony-ansible-project">⏰ <strong>NTP/Chrony Ansible Project</strong></h1>
+<p>This project provides an Ansible playbook to configure either NTP or Chrony as a time synchronization service on target hosts. It uses roles to modularize the tasks, making it reusable and easy to manage.</p>
+<hr />
+<h2 id="project-structure"><strong>Project Structure</strong></h2>
+<p>The project has the following directory structure:</p>
+<div class="highlight"><pre><span></span><code>.
+├── ansible.cfg
+├── inventroy.ini
+├── ntp_or_chrony.yml
+├── roles
+│   └── time_config
+│       ├── defaults
+│       │   └── main.yml
+│       └── tasks
+│           └── main.yml
+├── Vagrantfile
+└── README.md (this file)
+</code></pre></div>
+<h3 id="1-ansiblecfg"><strong>1. <code>ansible.cfg</code></strong></h3>
+<p>This is the Ansible configuration file. It specifies the inventory file location, remote user, and disables host key checking for convenience in a lab environment.</p>
+<h3 id="2-inventroyini"><strong>2. <code>inventroy.ini</code></strong></h3>
+<p>This file defines the hosts managed by Ansible. It includes a <code>[managed]</code> group with two sample hosts, <code>ansible-managed-1</code> and <code>ansible-managed-2</code>, with their respective IP addresses and SSH details.</p>
+<h3 id="3-ntp_or_chronyyml"><strong>3. <code>ntp_or_chrony.yml</code></strong></h3>
+<p>This is the main playbook. It prompts the user to select either <strong><code>ntp</code></strong> or <strong><code>chrony</code></strong> and then applies the <strong><code>time_config</code></strong> role to all hosts.</p>
+<h3 id="4-rolestime_config"><strong>4. <code>roles/time_config/</code></strong></h3>
+<p>This directory contains the Ansible role for configuring the time service.</p>
+<ul>
+<li><code>defaults/main.yml</code>: Sets default values for the NTP servers and timezone. These can be overridden at the playbook or command line level.</li>
+<li><code>tasks/main.yml</code>: Contains all the tasks required to configure the time service. This includes:<ul>
+<li><strong>Conditional variable setting</strong>: Determines the package name, service name, and configuration file based on the user's choice.</li>
+<li><strong>Package installation</strong>: Installs the selected time synchronization package.</li>
+<li><strong>Configuration</strong>: Backs up and deploys the new configuration file from a template.</li>
+<li><strong>Timezone setup</strong>: Sets the system timezone.</li>
+<li><strong>Service management</strong>: Restarts and enables the service.</li>
+<li><strong>Verification</strong>: Waits until the NTP synchronization is complete.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="prerequisites"><strong>Prerequisites</strong></h2>
+<ul>
+<li><strong>Vagrant</strong>: To provision the virtual machines.</li>
+<li><strong>VirtualBox</strong>: As the provider for Vagrant.</li>
+<li><strong>Git</strong>: To clone the repository.</li>
+</ul>
+<hr />
+<h2 id="setup-and-usage"><strong>Setup and Usage</strong></h2>
+<p>Follow these steps to set up and run the project:</p>
+<ol>
+<li>
+<p><strong>Clone the Repository</strong>:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ayushpawar21/TechOpsConfigWiki.git
+<span class="nb">cd</span><span class="w"> </span>TechOpsConfigWiki/ntp_chrony_ansible_project
+</code></pre></div>
+</li>
+<li>
+<p><strong>Provision Virtual Machines</strong>:
+    The <code>Vagrantfile</code> will create one <strong>control node</strong> (<code>ansible-control</code>) and two <strong>managed nodes</strong> (<code>ansible-managed-1</code>, <code>ansible-managed-2</code>). It also sets up SSH key-based authentication between the control and managed nodes.</p>
+<div class="highlight"><pre><span></span><code>vagrant<span class="w"> </span>up
+</code></pre></div>
+</li>
+<li>
+<p><strong>Run the Ansible Playbook</strong>:
+    After the VMs are up and running, SSH into the control node and execute the playbook.</p>
+<div class="highlight"><pre><span></span><code>vagrant<span class="w"> </span>ssh<span class="w"> </span>ansible-control
+<span class="nb">cd</span><span class="w"> </span>/vagrant
+ansible-playbook<span class="w"> </span>ntp_or_chrony.yml
+</code></pre></div>
+<p>You will be prompted to choose the time service to install.</p>
+<div class="highlight"><pre><span></span><code>Which<span class="w"> </span><span class="nb">time</span><span class="w"> </span>service<span class="w"> </span><span class="k">do</span><span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>install?<span class="w"> </span><span class="o">(</span>ntp<span class="w"> </span>or<span class="w"> </span>chrony<span class="o">)</span>:<span class="w"> </span>ntp
+</code></pre></div>
+</li>
+<li>
+<p><strong>Verify the Configuration</strong>:
+    You can verify the status of the time synchronization on any of the managed nodes.</p>
+<div class="highlight"><pre><span></span><code>vagrant<span class="w"> </span>ssh<span class="w"> </span>ansible-managed-1
+timedatectl
+</code></pre></div>
+<p>The output should show <strong><code>NTP synchronized: yes</code></strong>.</p>
+</li>
+</ol>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 18:55:16 UTC">August 23, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -505,10 +750,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "/TechOpsConfigWiki/", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate", "content.code.copy", "toc.integrate", "search.highlight", "navigation.top", "navigation.expand"], "search": "/TechOpsConfigWiki/assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate", "content.code.copy", "toc.integrate", "search.highlight", "navigation.top", "navigation.expand"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="/TechOpsConfigWiki/assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   </body>

@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ayushpawar21.github.io/TechOpsConfigWiki/</loc>
-         <lastmod>2025-07-23</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://ayushpawar21.github.io/TechOpsConfigWiki/ansible/</loc>
-         <lastmod>2025-07-23</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
-         <loc>https://ayushpawar21.github.io/TechOpsConfigWiki/ansible/jobs/</loc>
-         <lastmod>2025-07-23</lastmod>
+         <loc>https://ayushpawar21.github.io/TechOpsConfigWiki/ansible/AnsibleOps/</loc>
+         <lastmod>2025-08-23</lastmod>
     </url>
     <url>
          <loc>https://ayushpawar21.github.io/TechOpsConfigWiki/ansible/setup/</loc>
-         <lastmod>2025-07-23</lastmod>
+         <lastmod>2025-08-23</lastmod>
     </url>
 </urlset>
