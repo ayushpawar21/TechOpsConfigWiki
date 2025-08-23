@@ -13,7 +13,7 @@ theme:
     - toc.integrate
     - search.highlight
     - navigation.top
-
+    - navigation.expand
 # Repository
 repo_name: ayushpawar21/TechOpsConfigWiki
 repo_url: https://github.com/ayushpawar21/TechOpsConfigWiki
@@ -33,7 +33,7 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:mermaid2.fence_mermaid_custom
-
+  - pymdownx.details
 
 nav:
   - Home: index.md
@@ -45,7 +45,8 @@ nav:
   - Ansible:
       - Introduction: ansible/index.md
       - Lab Setup: ansible/setup.md
-      # - Jobs & Daily Task: ansible/jobs.md
+      - Daily Task/Ops : 
+          - NTP/Chrony Task : ansible/AnsibleOps.md
   # - Docker:
   #     - Basics: docker/index.md
   #     - Images & Containers: docker/images-containers.md
