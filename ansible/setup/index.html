@@ -32,7 +32,7 @@
 </div>
 <header class="md-header" data-md-component="header">
 <nav aria-label="Header" class="md-header__inner md-grid">
-<a aria-label="TechOps ConfigWiki" class="md-header__button md-logo" data-md-component="logo" href="../.." title="TechOps ConfigWiki">
+<a aria-label="TechOps ConfigWiki" class="md-header__button md-logo" data-md-component="logo" href="https://ayushpawar21.github.io/TechOpsConfigWiki/" title="TechOps ConfigWiki">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
 </a>
 <label class="md-header__button md-icon" for="__drawer">
@@ -133,7 +133,7 @@
 <div class="md-sidebar__inner">
 <nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
-<a aria-label="TechOps ConfigWiki" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="TechOps ConfigWiki">
+<a aria-label="TechOps ConfigWiki" class="md-nav__button md-logo" data-md-component="logo" href="https://ayushpawar21.github.io/TechOpsConfigWiki/" title="TechOps ConfigWiki">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
 </a>
     TechOps ConfigWiki
@@ -317,9 +317,9 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="vagrant-ansible-lab-setup-guide"><strong>Vagrant Ansible Lab Setup Guide</strong></h1>
+<h1 id="vagrant-ansible-lab-setup-guide"><strong>Vagrant Ansible Lab Setup Guide</strong><a class="headerlink" href="#vagrant-ansible-lab-setup-guide" title="Permanent link">¶</a></h1>
 <p>This guide will walk you through setting up a local Ansible control node and multiple managed nodes using Vagrant.</p>
-<h2 id="vagrant-ansible-lab-architecture"><strong>Vagrant Ansible Lab Architecture</strong></h2>
+<h2 id="vagrant-ansible-lab-architecture"><strong>Vagrant Ansible Lab Architecture</strong><a class="headerlink" href="#vagrant-ansible-lab-architecture" title="Permanent link">¶</a></h2>
 <pre class="mermaid"><code>graph TD
     Host[Host Machine] --&gt;|Vagrant| VirtualBox
     VirtualBox --&gt; Control[Control Node 192.168.56.10 Ansible]
@@ -328,16 +328,16 @@
     Control --&gt;|SSH| ManagedN[Managed Node 192.168.56.1X]
 
 </code></pre>
-<h2 id="prerequisites"><strong>Prerequisites</strong></h2>
+<h2 id="prerequisites"><strong>Prerequisites</strong><a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <p>Before you begin, ensure you have the following installed on your host machine:</p>
 <ul>
 <li>Vagrant: Download and install from: <a href="https://www.vagrantup.com/downloads">https://www.vagrantup.com/downloads</a></li>
 <li>VirtualBox (or another Vagrant provider): Download and install from <a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a></li>
 <li>Youtube Ref link: <a href="https://youtu.be/LZoEa9RNlgk">Ansible-Setup</a></li>
 </ul>
-<h2 id="setup-steps"><strong>Setup Steps</strong></h2>
+<h2 id="setup-steps"><strong>Setup Steps</strong><a class="headerlink" href="#setup-steps" title="Permanent link">¶</a></h2>
 <p>Follow these steps to get your Ansible lab up and running:</p>
-<h3 id="step-1-create-project-directory-and-vagrantfile"><strong>Step 1: Create Project Directory and Vagrantfile</strong></h3>
+<h3 id="step-1-create-project-directory-and-vagrantfile"><strong>Step 1: Create Project Directory and Vagrantfile</strong><a class="headerlink" href="#step-1-create-project-directory-and-vagrantfile" title="Permanent link">¶</a></h3>
 <p>Create a new directory for your project. You can name it <code>ansible_vagrant_lab</code> or anything you prefer.</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>ansible_vagrant_lab
 <span class="nb">cd</span><span class="w"> </span>ansible_vagrant_lab
@@ -444,12 +444,12 @@
 <span class="w">  </span><span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
-<h2 id="step-2-customize-vagrantfile-optional"><strong>Step 2: Customize Vagrantfile (Optional)</strong></h2>
+<h2 id="step-2-customize-vagrantfile-optional"><strong>Step 2: Customize Vagrantfile (Optional)</strong><a class="headerlink" href="#step-2-customize-vagrantfile-optional" title="Permanent link">¶</a></h2>
 <p>You can modify the following variables in your Vagrantfile to suit your needs:
 <div class="highlight"><pre><span></span><code>VAGRANT_NUM_MANAGED_NODES:<span class="w"> </span>Change<span class="w"> </span>the<span class="w"> </span>value<span class="w"> </span><span class="m">2</span><span class="w"> </span>to<span class="w"> </span>your<span class="w"> </span>desired<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>Ansible<span class="w"> </span>managed<span class="w"> </span>nodes.
 VAGRANT_IP_PREFIX:<span class="w"> </span>If<span class="w"> </span>you<span class="w"> </span>prefer<span class="w"> </span>a<span class="w"> </span>different<span class="w"> </span>private<span class="w"> </span>IP<span class="w"> </span>address<span class="w"> </span>range<span class="w"> </span><span class="k">for</span><span class="w"> </span>your<span class="w"> </span>VMs,<span class="w"> </span>change<span class="w"> </span><span class="s2">"192.168.56."</span><span class="w"> </span>to<span class="w"> </span>your<span class="w"> </span>desired<span class="w"> </span>prefix.
 </code></pre></div></p>
-<h2 id="step-3-start-the-virtual-machines"><strong>Step 3: Start the Virtual Machines</strong></h2>
+<h2 id="step-3-start-the-virtual-machines"><strong>Step 3: Start the Virtual Machines</strong><a class="headerlink" href="#step-3-start-the-virtual-machines" title="Permanent link">¶</a></h2>
 <p>Navigate to your ansible_vagrant_lab directory in your terminal and run the following command:</p>
 <div class="highlight"><pre><span></span><code>vagrant<span class="w"> </span>up
 </code></pre></div>
@@ -458,11 +458,11 @@ VAGRANT_IP_PREFIX:<span class="w"> </span>If<span class="w"> </span>you<span cla
 Create and configure the ansible-control VM.
 Create and configure the specified number of ansible-managed-X VMs.
 This process may take some time depending on your internet connection and system resources.</p>
-<h2 id="step-4-connect-to-the-ansible-control-node"><strong>Step 4: Connect to the Ansible Control Node</strong></h2>
+<h2 id="step-4-connect-to-the-ansible-control-node"><strong>Step 4: Connect to the Ansible Control Node</strong><a class="headerlink" href="#step-4-connect-to-the-ansible-control-node" title="Permanent link">¶</a></h2>
 <p>Once vagrant up completes, you can SSH into your Ansible control node:</p>
 <div class="highlight"><pre><span></span><code>vagrant<span class="w"> </span>ssh<span class="w"> </span>ansible-control
 </code></pre></div>
-<h2 id="step-5-verify-ansible-setup-on-control-node"><strong>Step 5: Verify Ansible Setup on Control Node</strong></h2>
+<h2 id="step-5-verify-ansible-setup-on-control-node"><strong>Step 5: Verify Ansible Setup on Control Node</strong><a class="headerlink" href="#step-5-verify-ansible-setup-on-control-node" title="Permanent link">¶</a></h2>
 <p>After connecting to the ansible-control VM, you can verify that Ansible is installed and the inventory file has been generated correctly:</p>
 <div class="highlight"><pre><span></span><code>ansible<span class="w"> </span>--version
 cat<span class="w"> </span>/etc/ansible/hosts
@@ -472,15 +472,15 @@ cat<span class="w"> </span>/etc/ansible/hosts
 ansible-managed-1 ansible_host=192.168.56.11 ansible_user=vagrant ansible_ssh_private_key_file=/home/vagrant/.ssh/id_rsa
 ansible-managed-2 ansible_host=192.168.56.12 ansible_user=vagrant ansible_ssh_private_key_file=/home/vagrant/.ssh/id_rsa
 </code></pre></div></p>
-<h2 id="step-6-change-user"><strong>Step 6: Change user</strong></h2>
+<h2 id="step-6-change-user"><strong>Step 6: Change user</strong><a class="headerlink" href="#step-6-change-user" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Swtich user vagrant to ansible user</span>
 su<span class="w"> </span>-<span class="w"> </span>ansible<span class="w"> </span>
 <span class="c1"># Password : ansible</span>
 </code></pre></div>
-<h2 id="step-7-test-ansible-ping"><strong>Step 7: Test Ansible Ping</strong></h2>
+<h2 id="step-7-test-ansible-ping"><strong>Step 7: Test Ansible Ping</strong><a class="headerlink" href="#step-7-test-ansible-ping" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>ansible<span class="w"> </span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping
 </code></pre></div>
-<h2 id="step-8-clean-up-optional"><strong>Step 8: Clean Up (Optional)</strong></h2>
+<h2 id="step-8-clean-up-optional"><strong>Step 8: Clean Up (Optional)</strong><a class="headerlink" href="#step-8-clean-up-optional" title="Permanent link">¶</a></h2>
 <p>When you are finished with your lab and want to remove the virtual machines from your system, run the following command from your host machine (in the ansible_vagrant_lab directory):</p>
 <p><div class="highlight"><pre><span></span><code>vagrant<span class="w"> </span>destroy<span class="w"> </span>-f
 </code></pre></div>
@@ -490,7 +490,7 @@ This will power down and delete all the VMs created by the Vagrantfile.</p>
 <span class="md-icon" title="Last update">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
 </span>
-<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 18:55:16 UTC">August 23, 2025</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 19:03:45 UTC">August 23, 2025</span>
 </span>
 </aside>
 </article>
@@ -513,6 +513,14 @@ This will power down and delete all the VMs created by the Vagrantfile.</p>
       Material for MkDocs
     </a>
 </div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/ayushpawar21" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2" fill="currentColor"></path></svg>
+</a>
+<a class="md-social__link" href="https://www.linkedin.com/in/ayush-pawar" rel="noopener" target="_blank" title="www.linkedin.com">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z" fill="currentColor"></path></svg>
+</a>
+</div>
 </div>
 </div>
 </footer>
@@ -520,7 +528,7 @@ This will power down and delete all the VMs created by the Vagrantfile.</p>
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate", "content.code.copy", "toc.integrate", "search.highlight", "navigation.top", "navigation.expand"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "toc.integrate", "search.highlight"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
 <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
 <script type="module">import mermaid from "https://unpkg.com/mermaid@10.0.2/dist/mermaid.esm.min.mjs";
 window.mermaidConfig = {default: {
