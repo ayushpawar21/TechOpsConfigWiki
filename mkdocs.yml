@@ -2,21 +2,24 @@ site_name: TechOps ConfigWiki
 site_url: https://ayushpawar21.github.io/TechOpsConfigWiki/
 site_description: A handy reference guide for IT professionals & DevOps engineers
 site_author: Aayush Pawar
+
 theme:
   name: material
   language: en
   features:
     - navigation.tabs
     - navigation.indexes
+    - navigation.expand
+    - navigation.top
     - content.code.annotate
-    - content.code.copy   
+    - content.code.copy
     - toc.integrate
     - search.highlight
-    - navigation.top
-    - navigation.expand
+
 # Repository
 repo_name: ayushpawar21/TechOpsConfigWiki
 repo_url: https://github.com/ayushpawar21/TechOpsConfigWiki
+edit_uri: edit/main/docs/
 
 plugins:
   - search
@@ -26,14 +29,30 @@ plugins:
       fallback_to_build_date: true
 
 markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - toc:
+      permalink: true
   - codehilite
   - pymdownx.superfences:
-        # make exceptions to highlighting of code:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:mermaid2.fence_mermaid_custom
   - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ayushpawar21
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/ayush-pawar
+  homepage: https://ayushpawar21.github.io/TechOpsConfigWiki/
 
 nav:
   - Home: index.md
@@ -45,8 +64,8 @@ nav:
   - Ansible:
       - Introduction: ansible/index.md
       - Lab Setup: ansible/setup.md
-      - Daily Task/Ops : 
-          - NTP/Chrony Task : ansible/AnsibleOps.md
+      - Daily Task/Ops: 
+          - NTP/Chrony Task: ansible/AnsibleOps.md
   # - Docker:
   #     - Basics: docker/index.md
   #     - Images & Containers: docker/images-containers.md
