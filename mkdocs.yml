@@ -54,6 +54,9 @@ extra:
       link: https://www.linkedin.com/in/ayush-pawar
   homepage: https://ayushpawar21.github.io/TechOpsConfigWiki/
 
+extra_css:
+  - stylesheets/extra.css
+
 nav:
   - Home: index.md
   # - Linux:
