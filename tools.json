@@ -1,0 +1,34 @@
+{
+  "tools": [
+    {
+      "name": "Kubernetes",
+      "api": "https://api.github.com/repos/kubernetes/kubernetes/releases/latest",
+      "notes": "https://kubernetes.io/docs/setup/release/notes/"
+    },
+    {
+      "name": "Docker",
+      "api": "https://api.github.com/repos/docker/docker-ce/releases/latest",
+      "notes": "https://docs.docker.com/release-notes/"
+    },
+    {
+      "name": "Vault",
+      "api": "https://api.github.com/repos/hashicorp/vault/releases/latest",
+      "notes": "https://github.com/hashicorp/vault/releases"
+    },
+    {
+      "name": "Keycloak",
+      "api": "https://api.github.com/repos/keycloak/keycloak/releases/latest",
+      "notes": "https://www.keycloak.org/docs/latest/release_notes/"
+    },
+    {
+      "name": "Helm",
+      "api": "https://api.github.com/repos/helm/helm/releases/latest",
+      "notes": "https://github.com/helm/helm/releases"
+    },
+    {
+      "name": "Jenkins",
+      "api": "https://updates.jenkins.io/current/update-center.actual.json",
+      "notes": "https://www.jenkins.io/changelog/"
+    }
+  ]
+}
