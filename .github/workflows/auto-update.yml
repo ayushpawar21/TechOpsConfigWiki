@@ -1,0 +1,33 @@
+name: Auto Update Releases
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run Auto Update Script
+        run: python update_releases.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Auto Updater"
+          git config --global user.email "actions@github.com"
+          git add docs/release.md
+          git commit -m "Auto-update releases" || echo "No changes to commit"
+          git push

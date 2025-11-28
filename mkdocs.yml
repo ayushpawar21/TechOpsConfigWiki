@@ -69,7 +69,7 @@ nav:
       - Lab Setup: ansible/setup.md
       - Daily Task/Ops: 
           - NTP/Chrony Task: ansible/AnsibleOps.md
-  - YTD: videos.md
+  - Updates: release.md
   # - Docker:
   #     - Basics: docker/index.md
   #     - Images & Containers: docker/images-containers.md
