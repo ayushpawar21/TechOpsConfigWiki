@@ -26,7 +26,7 @@ This page is updated automatically every day.
 ---
 
 ## Keycloak
-**Latest Version:** 26.4.6
+**Latest Version:** 26.4.7
 
 **Release Notes:** https://www.keycloak.org/docs/latest/release_notes/
 
