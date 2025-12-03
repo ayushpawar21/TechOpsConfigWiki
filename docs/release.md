@@ -40,7 +40,7 @@ This page is updated automatically every day.
 ---
 
 ## Jenkins
-**Latest Version:** 2.539
+**Latest Version:** 2.540
 
 **Release Notes:** https://www.jenkins.io/changelog/
 
